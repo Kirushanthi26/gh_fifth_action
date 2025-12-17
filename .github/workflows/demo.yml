@@ -25,17 +25,24 @@ jobs:
         run: npm ci
       - name: Build website
         run: npm run build
-      - name: Upload artifacts
+      - name: Upload artifacts  # 1. upload a dist folder using /upload-artifact
         uses: actions/upload-artifact@v4
         with:
           name: dist-files
-          path: | #if we have multiple paths 
-            dist
-            package.json
+          path: dist
+          # path: | #if we have multiple paths 
+          #   dist
+          #   package.json
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Get the build file # 2. download the dist file 
+        uses: actions/download-artifact@v5
+        with:
+          name: dist-files
+      - name: Output content
+        run: ls 
       - name: Deploy
         run: echo "Deploying..."
 
