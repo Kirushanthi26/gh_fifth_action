@@ -31,3 +31,7 @@ jobs:
     steps:
       - name: Deploy
         run: echo "Deploying..."
+
+
+# we have a test, build, deploy jobs: after the build we have to save the build folder for deployment 
+# that's why we need job artifacts 
